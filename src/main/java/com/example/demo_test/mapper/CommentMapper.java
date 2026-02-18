@@ -22,7 +22,7 @@ public class CommentMapper {
     }
     public Comment toComment(Long threadId, CommentDto commentDto){
         Comment comment = new Comment();
-        comment.setText(commentDto.getText() + "qwerty");
+        comment.setText(commentDto.getText());
         comment.setMessageThread(threadRepository.findById(threadId).orElseThrow(() -> new RuntimeException("not found")));
         return comment;
     }

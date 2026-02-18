@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@CrossOrigin(origins = "*")
+@CrossOrigin(value = "http://localhost:3000")
 @RequestMapping("/thread")
 public class CommentController {
     private final CommentService commentService;
