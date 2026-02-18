@@ -1,0 +1,25 @@
+package com.example.demo_test.model;
+
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.time.LocalDateTime;
+import java.util.List;
+
+@Entity
+@Table(name = "thread")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class MessageThread {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    private String text;
+    private LocalDateTime create_date;
+    @OneToMany(mappedBy = "messageThread", cascade = CascadeType.ALL)
+    private List<Comment> comments;
+}
