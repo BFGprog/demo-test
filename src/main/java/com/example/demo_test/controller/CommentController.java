@@ -11,7 +11,8 @@ import java.util.List;
 
 @RestController
 @CrossOrigin(value = "*")
-@RequestMapping("/thread")
+//@RequestMapping("/thread")
+@RequestMapping("/")
 @Slf4j
 public class CommentController {
     private final CommentService commentService;
