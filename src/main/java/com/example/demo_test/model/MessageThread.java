@@ -15,8 +15,13 @@ import java.util.List;
 @AllArgsConstructor
 public class MessageThread {
 
+    @SequenceGenerator(
+            name = "generatorThreadId"
+            ,sequenceName = "generatorthreadid"
+            ,allocationSize = 1)
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE,
+            generator = "generatorThreadId")
     private Long id;
     private String thread;
     private String text;

@@ -16,8 +16,13 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class Comment {
 
+    @SequenceGenerator(
+            name = "generatorCommentId"
+            ,sequenceName = "generatorcommentid"
+            ,allocationSize = 1)
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE,
+            generator = "generatorCommentId")
     private Long id;
     private String text;
     @Column(name = "create_date")
