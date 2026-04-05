@@ -14,6 +14,7 @@ FROM eclipse-temurin:17-jre
 WORKDIR /app
 COPY --from=build /app/target/*.jar app.jar
 
+ENV SPRING_PROFILES_ACTIVE=docker
 EXPOSE 9003
 ENTRYPOINT ["java", "-jar", "app.jar", "--server.address=0.0.0.0"]
 
