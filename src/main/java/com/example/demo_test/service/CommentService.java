@@ -2,6 +2,7 @@ package com.example.demo_test.service;
 
 import com.example.demo_test.mapper.CommentMapper;
 import com.example.demo_test.model.Comment;
+import com.example.demo_test.model.dto.AddComment;
 import com.example.demo_test.model.dto.CommentDto;
 import com.example.demo_test.reposotory.CommentRepository;
 import org.springframework.stereotype.Service;
@@ -28,7 +29,7 @@ public class CommentService {
         return commentDto;
     }
 
-    public CommentDto addComment(Long treadId, CommentDto commentDto) {
+    public CommentDto addComment(Long treadId, AddComment commentDto) {
         Comment comment = commentMapper.toComment(treadId, commentDto);
         Comment savedComment = commentRepository.save(comment);
         return commentMapper.toCommentDto(savedComment);

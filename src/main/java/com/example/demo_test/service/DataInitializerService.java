@@ -23,13 +23,14 @@ public class DataInitializerService implements CommandLineRunner {
     public void run(String... args) {
 
         if (threadRepository.count() > 0) {
-            return; // чтобы не создавать дубликаты при каждом запуске
+            return;
         }
 
         for (int i = 1; i <= 3; i++) {
 
             MessageThread thread = new MessageThread();
-            thread.setText("Thread " + i);
+            thread.setThread("Thread " + i);
+            thread.setText("Text for thread " + i);
             thread.setCreate_date(LocalDateTime.now());
 
             threadRepository.save(thread);
@@ -38,8 +39,6 @@ public class DataInitializerService implements CommandLineRunner {
                 Comment comment = new Comment();
                 comment.setText("Comment " + j + " for thread " + i);
                 comment.setCreate_date(LocalDateTime.now());
-
-                // важная часть — установка связи
                 comment.setMessageThread(thread);
 
                 commentRepository.save(comment);

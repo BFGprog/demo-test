@@ -1,15 +1,17 @@
 package com.example.demo_test.controller;
 
-import com.example.demo_test.model.dto.SentThreadDto;
-import com.example.demo_test.model.dto.SentThreadDtoAll;
+import com.example.demo_test.model.Comment;
+import com.example.demo_test.model.dto.*;
 import com.example.demo_test.service.ThreadService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@CrossOrigin(value = "http://localhost:3000")
-@RequestMapping("/thread/")
+@CrossOrigin(value = "*")
+@RequestMapping("/thread")
+@Slf4j
 public class ThreadController {
     ThreadService threadService;
 
@@ -18,12 +20,17 @@ public class ThreadController {
     }
 
     @GetMapping
-    public List<SentThreadDtoAll> getAllThread() {
+    public List<ThreadDto> getAllThread() {
         return threadService.getAllThread();
     }
     @GetMapping("{id}")
-    public SentThreadDto getThread(@PathVariable Long id) {
+    public ThreadDto getThread(@PathVariable Long id) {
         return threadService.getThreadById(id);
     }
 
+    @PostMapping
+    public ThreadDto addComment(@RequestBody AddThread addThread) {
+        log.info( addThread.toString() );
+        return threadService.addThread(addThread);
+    }
 }

@@ -1,12 +1,11 @@
 package com.example.demo_test.service;
 
+import com.example.demo_test.exception.ObjectNotFoundException404;
 import com.example.demo_test.mapper.ThreadMapper;
 import com.example.demo_test.model.MessageThread;
-import com.example.demo_test.model.dto.SentThreadDto;
-import com.example.demo_test.model.dto.SentThreadDtoAll;
+import com.example.demo_test.model.dto.AddThread;
 import com.example.demo_test.model.dto.ThreadDto;
 import com.example.demo_test.reposotory.ThreadRepository;
-import org.springframework.expression.ExpressionException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -22,25 +21,22 @@ public class ThreadService {
         this.threadMapper = threadMapper;
     }
 
-    public List<SentThreadDtoAll> getAllThread() {
-//        log.info("Получение всех объявлений");
+    public List<ThreadDto> getAllThread() {
         List<MessageThread> threads = threadRepository.findAll();
         return threads.stream()
-                .map(threadMapper::mapToSentThreadDtoAll)
+                .map(threadMapper::ThreadToThreadDto)
                 .toList();
     }
 
-    public void addThread(ThreadDto threadDto)  {
-//        log.info("Добавление нового объявления");
-        MessageThread newMessageThread = threadMapper.dtoToThread(threadDto);
-        threadRepository.save(newMessageThread);
+    public ThreadDto addThread(AddThread addThread)  {
+        MessageThread newMessageThread = threadMapper.addThreadToThread(addThread);
+        return threadMapper.ThreadToThreadDto(threadRepository.save(newMessageThread));
     }
 
-    public SentThreadDto getThreadById(Long id) {
-//        log.info("Получение объявления с ID: {}", id);
+    public ThreadDto getThreadById(Long id) {
         MessageThread messageThread = threadRepository.findById(id)
-                .orElseThrow(() -> new ExpressionException("не найдено"));
-        return threadMapper.mapToSentThreadDto(messageThread);
+                .orElseThrow(() -> new ObjectNotFoundException404("Thread " + id + " not found"));
+        return threadMapper.ThreadToThreadDto(messageThread);
     }
 
 }

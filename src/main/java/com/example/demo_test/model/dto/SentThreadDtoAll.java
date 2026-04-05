@@ -8,6 +8,7 @@ import java.time.LocalDateTime;
 public class SentThreadDtoAll {
 
     private Long id; //нужен?
+    private String thread;
     private String text;
-    private LocalDateTime create_date;
+    private String create_date;
 }
